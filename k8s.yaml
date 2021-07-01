@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jenkins-demo
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: jenkins-demo
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: jenkins-demo
+    spec:
+      containers:
+      - image: registry.cn-hangzhou.aliyuncs.com/ik9s/jenkins-demo:<BUILD_TAG>
+        imagePullPolicy: IfNotPresent
+        name: jenkins-demo
+        env:
+        - name: branch
+          value: <BRANCH_NAME>
